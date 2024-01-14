@@ -9,7 +9,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
-class ProcressVideo implements ShouldQueue
+class ProcessVideo implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -18,7 +18,7 @@ class ProcressVideo implements ShouldQueue
      */
     public function __construct()
     {
-        //
+        dd('hla');
     }
 
     /**

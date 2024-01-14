@@ -4,13 +4,14 @@ use Livewire\Volt\Component;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Reactive;
 use Livewire\WithFileUploads;
+use App\Jobs\ProcessVideo;
 use Livewire\Attributes\Validate;
 
-new #[Layout('layouts.app')] class extends Component 
-{
+new #[Layout('layouts.app')] class extends Component
+ {
     use WithFileUploads;
 
-    #[Validate] 
+    #[Validate]
     public $title = '';
     public $photo;
     public $video;
@@ -19,17 +20,17 @@ new #[Layout('layouts.app')] class extends Component
      */
     public function create()
     {
-        $this->photo->store('photos');
-        $this->video->store('videos');
-        dd('successs');
+        ProcessVideo::dispatch('saw');
+        // $this->photo->store('photos');
+        // $this->video->store('videos');
     }
 
     public function rules()
     {
         return [
-            'title' => 'required|min:5',
-            'photo' => 'requird|image|mimes:jpeg,png,jpg,gif|max:2048'
-        ];
+                // 'title' => 'required|min:5',
+                // 'photo' => 'requird|image|mimes:jpeg,png,jpg,gif|max:2048',
+            ];
     }
 }; ?>
 
@@ -41,9 +42,11 @@ new #[Layout('layouts.app')] class extends Component
         <div class="editor mx-auto w-10/12 flex flex-col text-gray-400 p-4 max-w-2xl">
             <input class="title bg-slate-700 border rounded-md border-gray-300 p-2 mb-4 outline-none" spellcheck="false"
                 wire:model.live='title' placeholder="Title" type="text">
-                <div>
-                    @error('title') <span class="text-red-500">{{ $message }}</span> @enderror 
-                </div>
+            <div>
+                @error('title')
+                    <span class="text-red-500">{{ $message }}</span>
+                @enderror
+            </div>
             {{-- poster   --}}
             <div x-data="{ uploading: false, progress: 0 }" x-on:livewire-upload-start="uploading = true"
                 x-on:livewire-upload-finish="uploading = false" x-on:livewire-upload-error="uploading = false"
@@ -57,7 +60,7 @@ new #[Layout('layouts.app')] class extends Component
                                 d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
                         </svg>
                         <span class="mt-2 text-sm leading-normal">Select a poster</span>
-                        <input type='file' class="hidden" wire:model='photo' />
+                        <input type='file' class="hidden" wire:model='photo' accept=".jpg,.jpeg,.png" />
                     </label>
                     @error('photo')
                         <span class="text-red-500">{{ $message }}</span>
