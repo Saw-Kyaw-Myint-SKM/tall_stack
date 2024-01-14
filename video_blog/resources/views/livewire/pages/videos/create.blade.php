@@ -6,11 +6,12 @@ use Livewire\Attributes\Reactive;
 use Livewire\WithFileUploads;
 use Livewire\Attributes\Validate;
 
-new #[Layout('layouts.app')] class extends Component {
+new #[Layout('layouts.app')] class extends Component 
+{
     use WithFileUploads;
 
+    #[Validate] 
     public $title = '';
-
     public $photo;
     public $video;
     /**
@@ -18,6 +19,17 @@ new #[Layout('layouts.app')] class extends Component {
      */
     public function create()
     {
+        $this->photo->store('photos');
+        $this->video->store('videos');
+        dd('successs');
+    }
+
+    public function rules()
+    {
+        return [
+            'title' => 'required|min:5',
+            'photo' => 'requird|image|mimes:jpeg,png,jpg,gif|max:2048'
+        ];
     }
 }; ?>
 
@@ -28,7 +40,10 @@ new #[Layout('layouts.app')] class extends Component {
         <div class="heading text-center font-bold text-2xl m-4 text-gray-300">Create New Video</div>
         <div class="editor mx-auto w-10/12 flex flex-col text-gray-400 p-4 max-w-2xl">
             <input class="title bg-slate-700 border rounded-md border-gray-300 p-2 mb-4 outline-none" spellcheck="false"
-                wire:model='title' placeholder="Title" type="text">
+                wire:model.live='title' placeholder="Title" type="text">
+                <div>
+                    @error('title') <span class="text-red-500">{{ $message }}</span> @enderror 
+                </div>
             {{-- poster   --}}
             <div x-data="{ uploading: false, progress: 0 }" x-on:livewire-upload-start="uploading = true"
                 x-on:livewire-upload-finish="uploading = false" x-on:livewire-upload-error="uploading = false"
@@ -52,10 +67,10 @@ new #[Layout('layouts.app')] class extends Component {
                     <div x-show="uploading" class="mt-2">
                         <x-loading />
                     </div>
-                    @if ($photo)
+                    {{-- @if ($photo)
                         <button x-on:click="$wire.photo=''" class="mr-2 text-red-500">clear</button>
                         <img src="{{ $photo->temporaryUrl() }}" class="h-48 w-48">
-                    @endif
+                    @endif --}}
                 </div>
             </div>
             {{-- video --}}
@@ -76,7 +91,8 @@ new #[Layout('layouts.app')] class extends Component {
                                     fill="currentColor" />
                             </svg>
                             <span class="mt-2 text-sm leading-normal">Select a video</span>
-                            <input type='file' class="hidden" wire:model='video' />
+                            <input type='file' class="hidden" wire:model='video'
+                                accept="video/mp4,video/x-m4v,video/*" />
                         </label>
                     </div>
                     <div class="w-full flex justify-center" :class="{ 'mt-2': $wire.video }">
