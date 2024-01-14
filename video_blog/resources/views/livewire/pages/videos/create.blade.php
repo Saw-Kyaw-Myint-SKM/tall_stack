@@ -5,31 +5,31 @@ use Livewire\Attributes\Layout;
 use Livewire\Attributes\Reactive;
 use Livewire\WithFileUploads;
 use App\Jobs\ProcessVideo;
+use App\Models\Blog;
 use Livewire\Attributes\Validate;
 
-new #[Layout('layouts.app')] class extends Component
- {
+new #[Layout('layouts.app')] class extends Component 
+{
     use WithFileUploads;
 
-    #[Validate]
+    // #[Validate]
     public $title = '';
-    public $photo;
+    public $poster;
     public $video;
     /**
      * Handle an incoming authentication request.
      */
     public function create()
     {
-        ProcessVideo::dispatch('saw');
-        // $this->photo->store('photos');
-        // $this->video->store('videos');
+        $data = Blog::create(['title' => $this->title, 'poster' => $this->poster->store('posters'), 'video' => $this->video->store('videos')]);
+        $this->reset();
     }
 
     public function rules()
     {
         return [
                 // 'title' => 'required|min:5',
-                // 'photo' => 'requird|image|mimes:jpeg,png,jpg,gif|max:2048',
+                // 'poster' => 'requird|image|mimes:jpeg,png,jpg,gif|max:2048',
             ];
     }
 }; ?>
@@ -60,20 +60,20 @@ new #[Layout('layouts.app')] class extends Component
                                 d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
                         </svg>
                         <span class="mt-2 text-sm leading-normal">Select a poster</span>
-                        <input type='file' class="hidden" wire:model='photo' accept=".jpg,.jpeg,.png" />
+                        <input type='file' class="hidden" wire:model='poster' accept=".jpg,.jpeg,.png" />
                     </label>
-                    @error('photo')
+                    @error('poster')
                         <span class="text-red-500">{{ $message }}</span>
                     @enderror
                 </div>
-                <div class="w-full flex justify-center" :class="{ 'mt-2': $wire.photo }">
+                <div class="w-full flex justify-center" :class="{ 'mt-2': $wire.poster }">
                     <div x-show="uploading" class="mt-2">
                         <x-loading />
                     </div>
-                    {{-- @if ($photo)
-                        <button x-on:click="$wire.photo=''" class="mr-2 text-red-500">clear</button>
-                        <img src="{{ $photo->temporaryUrl() }}" class="h-48 w-48">
-                    @endif --}}
+                    @if ($poster)
+                        <button x-on:click="$wire.poster=''" class="mr-2 text-red-500">clear</button>
+                        <img src="{{ $poster->temporaryUrl() }}" class="h-48 w-48">
+                    @endif
                 </div>
             </div>
             {{-- video --}}
