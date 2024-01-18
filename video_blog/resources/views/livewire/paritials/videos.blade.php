@@ -1,9 +1,16 @@
 <?php
 
 use Livewire\Volt\Component;
+use App\Models\Blog;
 
 new class extends Component {
     public $videos = ['saw', 'kyaw', 'myint', 'hla', 'hfia'];
+    public $blogs;
+
+    public function mount(): void
+    {
+        $this->blogs = Blog::latest('id')->get();
+    }
 }; ?>
 
 <div>
@@ -13,14 +20,13 @@ new class extends Component {
             wire:navigate>create</x-link>
     </div>
     <div class="flex flex-wrap items-center gap-x-4 gap-y-4 px-2">
-        @foreach ($videos as $video)
+        @foreach ($blogs as $blog)
             <div
                 class="w-full max-w-[17rem] rounded-xl py-2 px-2 bg-slate-700 border border-slate-600 bg-clip-border text-gray-700 shadow-lg">
                 <div class="relative">
                     <div
                         class="relative overflow-hidden h-52 rounded-xl bg-blue-gray-500 bg-clip-border text-white shadow-blue-gray-500/40">
-                        <img src="https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1470&amp;q=80"
-                            class="h-full" alt="ui/ux review check" />
+                        <img src="{{ asset($blog->poster) }}" class="h-full" alt="ui/ux review check" />
                         <button
                             class="!absolute top-4 right-4 h-8 max-h-[32px] w-8 max-w-[32px] select-none rounded-full text-center align-middle font-sans text-xs font-medium uppercase text-pink-500 transition-all hover:bg-red-500/10 active:bg-red-500/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                             type="button" data-ripple-dark="true">
@@ -40,7 +46,8 @@ new class extends Component {
             surrounded by ancient trees, stone walls, and open meadows.
         </p>
     </div> --}}
-                    <p class="px-2 mt-2 text-gray-300">Name : <span class="text-pink-400 ml-2">saw</span></p>
+                    <p class="px-2 mt-2 text-gray-300">Name : <span
+                            class="text-pink-400 ml-2">{{$blog->title }}</span></p>
                 </div>
             </div>
         @endforeach

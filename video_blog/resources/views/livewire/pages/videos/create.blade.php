@@ -21,7 +21,7 @@ new #[Layout('layouts.app')] class extends Component
      */
     public function create()
     {
-        $data = Blog::create(['title' => $this->title, 'poster' => $this->poster->store('posters'), 'video' => $this->video->store('videos')]);
+        $data = Blog::create(['title' => $this->title, 'poster' => $this->poster->store('public/posters'), 'video' => $this->video->store('public/videos')]);
         $this->reset();
     }
 
