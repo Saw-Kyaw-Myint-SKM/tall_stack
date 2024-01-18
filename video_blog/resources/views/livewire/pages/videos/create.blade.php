@@ -8,7 +8,8 @@ use App\Jobs\ProcessVideo;
 use App\Models\Blog;
 use Livewire\Attributes\Validate;
 
-new #[Layout('layouts.app')] class extends Component {
+new #[Layout('layouts.app')] class extends Component
+ {
     use WithFileUploads;
 
     // #[Validate]
