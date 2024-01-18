@@ -18,7 +18,7 @@ class BlogFactory extends Factory
     {
         return [
             'title' => fake()->name(5),
-            'poster' => 'photo/demo.jpg',
+            'poster' => 'posters/demo.jpg',
             'video' => 'videos/demo.mp4',
         ];
     }
