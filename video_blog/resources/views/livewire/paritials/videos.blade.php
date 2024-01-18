@@ -20,8 +20,8 @@ new class extends Component {
     </div>
     <div class="flex flex-wrap items-center gap-x-4 gap-y-4 px-2">
         @foreach ($blogs as $blog)
-            <div
-                class="w-full max-w-[17rem] rounded-xl py-2 px-2 bg-slate-700 border border-slate-600 bg-clip-border text-gray-700 shadow-lg">
+            <x-link :href="route('videos.show', $blog->id)"
+                class="w-full block max-w-[17rem] rounded-xl py-2 px-2 bg-slate-700 border border-slate-600 bg-clip-border text-gray-700 shadow-lg" wire:navigate>
                 <div class="relative">
                     <div
                         class="relative overflow-hidden h-52 rounded-xl bg-blue-gray-500 bg-clip-border text-white shadow-blue-gray-500/40">
@@ -48,7 +48,7 @@ new class extends Component {
                     <p class="px-2 mt-2 text-gray-300">Name : <span
                             class="text-pink-400 ml-2">{{ $blog->title }}</span></p>
                 </div>
-            </div>
+            </x-link>
         @endforeach
     </div>
 </div>

@@ -31,7 +31,7 @@ Route::view('video/create', 'video/create')
 Volt::route('/videos/create', 'pages.videos.create')
     ->name('videos.create');
 
-Volt::route('/videos/{id}', 'pages.videos.show')
+Volt::route('/videos/{id}/detail', 'pages.videos.show')
     ->name('videos.show');
 
 require __DIR__ . '/auth.php';
