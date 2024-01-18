@@ -4,7 +4,6 @@ use Livewire\Volt\Component;
 use App\Models\Blog;
 
 new class extends Component {
-    public $videos = ['saw', 'kyaw', 'myint', 'hla', 'hfia'];
     public $blogs;
 
     public function mount(): void
@@ -26,7 +25,7 @@ new class extends Component {
                 <div class="relative">
                     <div
                         class="relative overflow-hidden h-52 rounded-xl bg-blue-gray-500 bg-clip-border text-white shadow-blue-gray-500/40">
-                        <img src="{{ asset($blog->poster) }}" class="h-full" alt="ui/ux review check" />
+                        <img src="{{ asset($blog->poster) }}" class="h-full w-full" alt="ui/ux review check" />
                         <button
                             class="!absolute top-4 right-4 h-8 max-h-[32px] w-8 max-w-[32px] select-none rounded-full text-center align-middle font-sans text-xs font-medium uppercase text-pink-500 transition-all hover:bg-red-500/10 active:bg-red-500/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                             type="button" data-ripple-dark="true">
@@ -47,7 +46,7 @@ new class extends Component {
         </p>
     </div> --}}
                     <p class="px-2 mt-2 text-gray-300">Name : <span
-                            class="text-pink-400 ml-2">{{$blog->title }}</span></p>
+                            class="text-pink-400 ml-2">{{ $blog->title }}</span></p>
                 </div>
             </div>
         @endforeach

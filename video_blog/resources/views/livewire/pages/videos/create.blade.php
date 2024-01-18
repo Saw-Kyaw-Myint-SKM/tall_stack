@@ -8,8 +8,7 @@ use App\Jobs\ProcessVideo;
 use App\Models\Blog;
 use Livewire\Attributes\Validate;
 
-new #[Layout('layouts.app')] class extends Component 
-{
+new #[Layout('layouts.app')] class extends Component {
     use WithFileUploads;
 
     // #[Validate]
@@ -21,7 +20,7 @@ new #[Layout('layouts.app')] class extends Component
      */
     public function create()
     {
-        $data = Blog::create(['title' => $this->title, 'poster' => $this->poster->store('public/posters'), 'video' => $this->video->store('public/videos')]);
+        $data = Blog::create(['title' => $this->title, 'poster' => $this->poster->store('posters'), 'video' => $this->video->store('videos')]);
         $this->reset();
     }
 
