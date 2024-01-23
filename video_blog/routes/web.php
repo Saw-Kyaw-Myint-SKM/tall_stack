@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Iman\Streamer\Video;
+use Iman\Streamer\VideoStreamer;
 use Livewire\Volt\Volt;
 
 /*
@@ -33,5 +35,10 @@ Volt::route('/videos/create', 'pages.videos.create')
 
 Volt::route('/videos/{id}/detail', 'pages.videos.show')
     ->name('videos.show');
+
+Route::get('/videos-streaming/{video}', function ($video) {
+    $path = public_path("$video");
+    VideoStreamer::streamFile($path);
+})->where('video', '.*')->name('stream.video');
 
 require __DIR__ . '/auth.php';

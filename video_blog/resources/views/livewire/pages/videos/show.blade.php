@@ -18,7 +18,7 @@ new #[Layout('layouts.app')] class extends Component
     <div id='test'>
         <video id="myvideo" class="video-js vjs-fluid w-full h-auto" controls preload="auto"
             poster="{{ asset($blog->poster) }}" data-setup='{}'>
-            <source src="{{ asset($blog->video) }}" type="video/mp4">
+            <source src="{{ route('stream.video', ['video' => $blog->video]) }}" type="video/mp4">
         </video>
     </div>
 </div>

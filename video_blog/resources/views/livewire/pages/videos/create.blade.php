@@ -41,7 +41,7 @@ new #[Layout('layouts.app')] class extends Component
         <div class="heading text-center font-bold text-2xl m-4 text-gray-300">Create New Video</div>
         <div class="editor mx-auto w-10/12 flex flex-col text-gray-400 p-4 max-w-2xl">
             <input class="title bg-slate-700 border rounded-md border-gray-300 p-2 mb-4 outline-none" spellcheck="false"
-                wire:model.live='title' placeholder="Title" type="text">
+                wire:model='title' placeholder="Title" type="text">
             <div>
                 @error('title')
                     <span class="text-red-500">{{ $message }}</span>
